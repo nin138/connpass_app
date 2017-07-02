@@ -1,8 +1,8 @@
 package item.java_conf.gr.jp.connpassapp
 
 import android.content.Context
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,7 +62,11 @@ class RecyclerAdapter(private val context: Context, private var list: Array<Even
 
   override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
     if (list.size > i) {
-      viewHolder.textView.text = list[i].title
+      viewHolder.series.text = list[i].series.title
+      viewHolder.event.text = list[i].title
+      val num = list[i].accepted + list[i].waiting
+      if(num >= list[i].limit) viewHolder.capacity.setTextColor(Color.RED)
+      viewHolder.capacity.text = context.getString(R.string.capacity, num ,list[i].limit)
       val st = list[i].started_at
       calender.time = dateFmt.parse(st)
       viewHolder.year.text = st.substring(0, 4)
@@ -77,14 +81,13 @@ class RecyclerAdapter(private val context: Context, private var list: Array<Even
   }
 
   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    val textView: TextView
-    init {
-      textView = itemView.findViewById<TextView>(R.id.list_item_text)
-    }
-    val year = itemView.findViewById<TextView>(R.id.year)
-    val date = itemView.findViewById<TextView>(R.id.date)
-    val day = itemView.findViewById<TextView>(R.id.day)
-    val time = itemView.findViewById<TextView>(R.id.time)
+    val series: TextView = itemView.findViewById(R.id.series_name)
+    val event: TextView = itemView.findViewById(R.id.event_name)
+    val capacity: TextView = itemView.findViewById(R.id.capacity)
+    val year: TextView = itemView.findViewById(R.id.year)
+    val date: TextView = itemView.findViewById(R.id.date)
+    val day: TextView= itemView.findViewById(R.id.day)
+    val time: TextView = itemView.findViewById(R.id.time)
   }
 
 }

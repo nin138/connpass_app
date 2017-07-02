@@ -3,4 +3,5 @@
   <string name="time">%s~</string>
   <string name="day">(%s)</string>
   <string name="date">%s/%s</string>
+  <string name="capacity">%d/%d人</string>
 </resources>
