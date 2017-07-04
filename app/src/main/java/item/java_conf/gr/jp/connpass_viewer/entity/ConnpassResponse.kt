@@ -1,19 +1,5 @@
 package item.java_conf.gr.jp.connpass_viewer.entity
 
-data class ConnpassQuery(
-        var event_id: Int,
-        var keyword: String,
-        var keyword_or: String,
-        var ym: Int,
-        var ymd: Int,
-        var nickname: String,
-        var owner_nickname: String,
-        var series_id: Int,
-        var start: Int,
-        var order: Int,
-        var count: Int,
-        var format: String
-)
 data class ConnpassResponse(
         var results_returned: Int,//	整数	含まれる検索結果の件数	1
         var results_available: Int, //	整数	検索結果の総件数	191
