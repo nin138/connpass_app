@@ -19,4 +19,11 @@
   
   <string name="setting_me">my設定</string>
   <string name="setting_search">検索設定</string>
+  <string name="keyword">キーワード</string>
+  <string name="and">and</string>
+  <string name="or">or</string>
+  <string name="start_date">検索開始日時</string>
+  <string name="end_date">終了日時</string>
+  <string name="nick_name">ニックネーム</string>
+  <string name="search">検索</string>
 </resources>

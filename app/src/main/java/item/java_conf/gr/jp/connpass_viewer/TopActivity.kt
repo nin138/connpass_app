@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import android.widget.Toast
 import item.java_conf.gr.jp.connpass_viewer.fragment.RecyclerFragment
+import item.java_conf.gr.jp.connpass_viewer.fragment.AdvancedSearchFragment
 import kotlinx.android.synthetic.main.activity_top.*
 
 class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -59,7 +60,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     if (id == R.id.nav_my_event) {
       changeFragment(RecyclerFragment())
     } else if (id == R.id.nav_advanced_search) {
-
+      changeFragment(AdvancedSearchFragment())
     } else if (id == R.id.nav_favorite) {
       changeFragment(RecyclerFragment())
     } else if (id == R.id.nav_black_list) {

@@ -10,12 +10,17 @@ import android.widget.Toast
 import item.java_conf.gr.jp.connpass_viewer.Http
 import item.java_conf.gr.jp.connpass_viewer.R
 import item.java_conf.gr.jp.connpass_viewer.RecyclerAdapter
+import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassRequest
 import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassResponse
 import item.java_conf.gr.jp.connpass_viewer.entity.Event
 import kotlinx.android.synthetic.main.recycler_fragment.*
 
 
-class RecyclerFragment : Fragment() {
+class RecyclerFragment() : Fragment() {
+  var request: ConnpassRequest? = null
+  constructor(request: ConnpassRequest): this() {
+    this.request = request
+  }
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     super.onCreateView(inflater, container, savedInstanceState)
     return inflater.inflate(R.layout.recycler_fragment, container, false)
