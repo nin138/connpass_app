@@ -20,22 +20,22 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this@MainActivity, event.title, Toast.LENGTH_SHORT).show()
       }
     })
-    val layoutManager = LinearLayoutManager(this)
-    recycler_view.layoutManager = layoutManager
-    recycler_view.adapter = adaptor
-
-    val connpassUrl = "https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=2"
-    test.setOnClickListener {
-      val http = Http()
-      http.setCallback(object : Http.Callback {
-        override fun onSuccess(body: ConnpassResponse) {
-          adaptor.setList(body.events)
-        }
-        override fun onError() {
-          Toast.makeText(this@MainActivity, "net connection error", Toast.LENGTH_SHORT).show()
-        }
-      })
-      http.execute(connpassUrl)
-    }
+//    val layoutManager = LinearLayoutManager(this)
+//    recycler_view.layoutManager = layoutManager
+//    recycler_view.adapter = adaptor
+//
+//    val connpassUrl = "https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=2"
+//    test.setOnClickListener {
+//      val http = Http()
+//      http.setCallback(object : Http.Callback {
+//        override fun onSuccess(body: ConnpassResponse) {
+//          adaptor.setList(body.events)
+//        }
+//        override fun onError() {
+//          Toast.makeText(this@MainActivity, "net connection error", Toast.LENGTH_SHORT).show()
+//        }
+//      })
+//      http.execute(connpassUrl)
+//    }
   }
 }

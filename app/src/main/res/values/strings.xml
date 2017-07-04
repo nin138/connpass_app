@@ -10,4 +10,13 @@
   <string name="navigation_drawer_close">Close navigation drawer</string>
 
   <string name="action_settings">Settings</string>
+
+  <string name="my_event">マイイベント</string>
+  <string name="advanced_search">詳細検索"</string>
+  <string name="settings">設定</string>
+  <string name="favorite">お気に入り</string>
+  <string name="black_list">ブラックリスト</string>
+  
+  <string name="setting_me">my設定</string>
+  <string name="setting_search">検索設定</string>
 </resources>

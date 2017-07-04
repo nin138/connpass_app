@@ -3,33 +3,32 @@
 
   <group android:checkableBehavior="single">
     <item
-        android:id="@+id/nav_camera"
-        android:icon="@drawable/ic_menu_camera"
-        android:title="Import" />
+        android:icon="@drawable/ic_action_my_event"
+        android:id="@+id/nav_my_event"
+        android:title="@string/my_event" />
     <item
-        android:id="@+id/nav_gallery"
-        android:icon="@drawable/ic_menu_gallery"
-        android:title="Gallery" />
+        android:id="@+id/nav_advanced_search"
+        android:icon="@drawable/ic_action_plus"
+        android:title="@string/advanced_search" />
     <item
-        android:id="@+id/nav_slideshow"
-        android:icon="@drawable/ic_menu_slideshow"
-        android:title="Slideshow" />
+        android:id="@+id/nav_favorite"
+        android:icon="@drawable/ic_action_fav"
+        android:title="@string/favorite" />
     <item
-        android:id="@+id/nav_manage"
-        android:icon="@drawable/ic_menu_manage"
-        android:title="Tools" />
+        android:id="@+id/nav_black_list"
+        android:icon="@drawable/ic_action_ban"
+        android:title="@string/black_list" />
   </group>
 
-  <item android:title="Communicate">
+  <item android:title="@string/settings">
     <menu>
       <item
           android:id="@+id/nav_share"
-          android:icon="@drawable/ic_menu_share"
-          android:title="Share" />
+          android:icon="@drawable/ic_action_setting"
+          android:title="@string/setting_me" />
       <item
           android:id="@+id/nav_send"
-          android:icon="@drawable/ic_menu_send"
-          android:title="Send" />
+          android:title="@string/setting_search" />
     </menu>
   </item>
 

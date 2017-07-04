@@ -26,26 +26,19 @@ public class Http : AsyncTask<String, Void, ConnpassResponse?>() {
   override fun doInBackground(vararg args: String?): ConnpassResponse? {
     val url: URL = URL(args[0])
     try {
-      Log.d("a", "1")
+      Log.d("startHttp", "1")
       val connection = url.openConnection() as HttpURLConnection
-      Log.d("a", "2")
       connection.connect()
-      Log.d("a", "3")
       val status = connection.responseCode
-      Log.d("a", "4")
       if(status == HttpsURLConnection.HTTP_OK) {
-        Log.d("a", "5")
         var encoding = connection.contentEncoding
         if (encoding == null) {
           encoding = "UTF-8"
         }
-        Log.d("a", "6")
         val streamReader = InputStreamReader(connection.inputStream, encoding)
         val buff = BufferedReader(streamReader)
         val sb = StringBuffer()
-        Log.d("a", "7")
         var line: String? = buff.readLine()
-        Log.d("a", "8")
         while(line != null) {
           sb.append(line)
           line = buff.readLine()

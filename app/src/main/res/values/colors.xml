@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#cc0000</color>
-    <color name="colorPrimaryDark">#aa0000</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="series_bg">#9c2424</color>
-    <color name="white">#fff</color>
-    <color name="border_color">#777</color>
+  <color name="colorPrimary">#cc0000</color>
+  <color name="colorPrimaryDark">#aa0000</color>
+  <color name="colorAccent">#aa0000</color>
+  <color name="series_bg">#9c2424</color>
+  <color name="white">#fff</color>
+  <color name="border_color">#777</color>
+  <color name="black">#000</color>
 </resources>
