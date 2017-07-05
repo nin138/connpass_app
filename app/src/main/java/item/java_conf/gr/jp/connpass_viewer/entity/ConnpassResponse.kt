@@ -17,7 +17,7 @@ data class Event(
         var ended_at: String, //	文字列(UTF-8)	イベント終了日時 (ISO-8601形式)	2012-04-17T20:30:00+09:00
         var limit: Int, //	整数	定員	80
         var event_type: String, //	文字列(UTF-8)	イベント参加タイプ	participation: connpassで参加受付あり,advertisement: 告知のみ
-        var series: Series, //	オブジェクト	グループ
+        var series: Series?, //	オブジェクト	グループ
         var address: String, //	文字列(UTF-8)	開催場所	東京都渋谷区千駄ヶ谷5-32-7
         var place: String, //	文字列(UTF-8)	開催会場	BPオフィス (NOF南新宿ビル4F)
         var lat: Double, //	浮動小数点数	開催会場の緯度	35.680236100000

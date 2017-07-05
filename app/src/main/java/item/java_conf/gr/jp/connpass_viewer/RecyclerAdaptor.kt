@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import item.java_conf.gr.jp.connpass_viewer.entity.Event
+import java.io.Serializable
 
 
 import java.text.SimpleDateFormat
@@ -62,7 +63,7 @@ class RecyclerAdapter(private val context: Context, private var list: Array<Even
 
   override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
     if (list.size > i) {
-      viewHolder.series.text = list[i].series.title
+      viewHolder.series.text = list[i].series?.title
       viewHolder.event.text = list[i].title
       val num = list[i].accepted + list[i].waiting
       if(num >= list[i].limit) viewHolder.capacity.setTextColor(Color.RED)

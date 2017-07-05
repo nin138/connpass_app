@@ -28,8 +28,7 @@ public class Http : AsyncTask<String, Void, ConnpassResponse?>() {
     try {
       Log.d("http", "1")
       val connection = url.openConnection() as HttpURLConnection
-      connection.connectTimeout = 5000
-      connection.readTimeout = 5000
+      connection.connectTimeout = 7000
 
       connection.connect()
       Log.d("http", "response")

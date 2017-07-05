@@ -1,6 +1,7 @@
 package item.java_conf.gr.jp.connpass_viewer
 
 import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.support.design.widget.NavigationView
@@ -37,7 +38,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     nav_view.getHeaderView(0).findViewById<View>(R.id.simpleSearch).setOnClickListener {
       Toast.makeText(this@TopActivity, "test", Toast.LENGTH_SHORT).show()
-      changeFragment(RecyclerFragment())
+      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=3"))
     }
 
 
@@ -54,18 +55,18 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
 
   override fun onNavigationItemSelected(item: MenuItem): Boolean {
-    // Handle navigation view item clicks here.
     val id = item.itemId
 
     if (id == R.id.nav_my_event) {
-      changeFragment(RecyclerFragment())
+      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=2"))
     } else if (id == R.id.nav_advanced_search) {
       changeFragment(AdvancedSearchFragment())
     } else if (id == R.id.nav_favorite) {
-      changeFragment(RecyclerFragment())
+      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=1"))
     } else if (id == R.id.nav_black_list) {
 
-    } else if (id == R.id.nav_share) {
+    } else if (id == R.id.nav_setting) {
+      startActivity(Intent(this, SettingActivity::class.java))
 
     } else if (id == R.id.nav_send) {
 

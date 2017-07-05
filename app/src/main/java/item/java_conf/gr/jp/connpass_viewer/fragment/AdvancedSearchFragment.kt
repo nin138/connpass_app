@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import item.java_conf.gr.jp.connpass_viewer.R
 import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassRequest
 import kotlinx.android.synthetic.main.advanced_search_fragment.*
-import kotlinx.android.synthetic.main.list_item.*
+
 
 class AdvancedSearchFragment : Fragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -26,10 +26,9 @@ class AdvancedSearchFragment : Fragment() {
       request.setDateRange(
           toYYYYMMDD(datePickerStart.year, datePickerStart.month, datePickerStart.dayOfMonth),
           toYYYYMMDD(datePickerEnd.year, datePickerEnd.month, datePickerEnd.dayOfMonth))
-      request.getQuery()
 
       val transaction = fragmentManager.beginTransaction()
-      transaction.replace(R.id.fragment_frame, RecyclerFragment(request))
+      transaction.replace(R.id.fragment_frame, RecyclerFragment(request.getQuery()))
       transaction.addToBackStack(null)
       transaction.commit()
     }

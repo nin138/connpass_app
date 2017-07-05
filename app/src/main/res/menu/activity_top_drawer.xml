@@ -23,7 +23,7 @@
   <item android:title="@string/settings">
     <menu>
       <item
-          android:id="@+id/nav_share"
+          android:id="@+id/nav_setting"
           android:icon="@drawable/ic_action_setting"
           android:title="@string/setting_me" />
       <item
