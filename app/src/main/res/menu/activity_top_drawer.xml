@@ -18,14 +18,14 @@
         android:id="@+id/nav_black_list"
         android:icon="@drawable/ic_action_ban"
         android:title="@string/black_list" />
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_action_setting"
+        android:title="@string/settings" />
   </group>
 
   <item android:title="@string/settings">
     <menu>
-      <item
-          android:id="@+id/nav_setting"
-          android:icon="@drawable/ic_action_setting"
-          android:title="@string/setting_me" />
       <item
           android:id="@+id/nav_send"
           android:title="@string/setting_search" />

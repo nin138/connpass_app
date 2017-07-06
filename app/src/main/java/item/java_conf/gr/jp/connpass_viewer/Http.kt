@@ -12,9 +12,9 @@ import javax.net.ssl.HttpsURLConnection
 
 
 
-public class Http : AsyncTask<String, Void, ConnpassResponse?>() {
+class Http : AsyncTask<String, Void, ConnpassResponse?>() {
 
-  public interface Callback {
+  interface Callback {
     fun onSuccess(body: ConnpassResponse)
     fun onError()
   }
@@ -26,12 +26,9 @@ public class Http : AsyncTask<String, Void, ConnpassResponse?>() {
   override fun doInBackground(vararg args: String?): ConnpassResponse? {
     val url: URL = URL(args[0])
     try {
-      Log.d("http", "1")
       val connection = url.openConnection() as HttpURLConnection
       connection.connectTimeout = 7000
-
       connection.connect()
-      Log.d("http", "response")
       val status = connection.responseCode
       if(status == HttpsURLConnection.HTTP_OK) {
         Log.d("http", "ok")

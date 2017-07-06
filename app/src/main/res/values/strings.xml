@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">ConnpassApp</string>
+  <string name="app_name">Connpass Viewer</string>
   <string name="time">%s~</string>
   <string name="day">(%s)</string>
   <string name="date">%1$s/%2$s</string>
@@ -26,4 +26,15 @@
   <string name="end_date">終了日時</string>
   <string name="nick_name">ニックネーム</string>
   <string name="search">検索</string>
+  <string name="user_name">ユーザー名</string>
+  <string name="simple_search_setting">簡易検索設定</string>
+  <string name="simple_search_range">検索範囲</string>
+  <string-array name="simple_search_range_array">
+    <item>無制限</item>
+    <item>今日から１週間</item>
+    <item>今日から２週間</item>
+    <item>今日から１か月</item>
+  </string-array>
+  <string name="search_or">or検索</string>
+  <string name="search_and">and検索</string>
 </resources>

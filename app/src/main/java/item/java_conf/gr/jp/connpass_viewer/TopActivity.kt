@@ -14,13 +14,14 @@ import android.view.MenuItem
 import android.widget.Toast
 import item.java_conf.gr.jp.connpass_viewer.fragment.RecyclerFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.AdvancedSearchFragment
+import item.java_conf.gr.jp.connpass_viewer.fragment.SettingFragment
 import kotlinx.android.synthetic.main.activity_top.*
 
 class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    Setting.init(this)
     setContentView(R.layout.activity_top)
     val toolbar = findViewById(R.id.toolbar) as Toolbar
 
@@ -66,7 +67,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     } else if (id == R.id.nav_black_list) {
 
     } else if (id == R.id.nav_setting) {
-      startActivity(Intent(this, SettingActivity::class.java))
+      changeFragment(SettingFragment())
 
     } else if (id == R.id.nav_send) {
 
