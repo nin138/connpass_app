@@ -1,6 +1,5 @@
 package item.java_conf.gr.jp.connpass_viewer.entity
 
-import java.time.Year
 import java.util.*
 
 class ConnpassRequest {
@@ -60,7 +59,7 @@ class ConnpassRequest {
   private fun getQueryAttr(array: List<String>?, name: String): String {
     if(array != null) {
       var query = name + "="
-      array.forEach { query += it + "," }
+      array.forEach { if(it != "")query += it + "," }
       if (query.last() == ',') query.substring(0, query.length - 1)
       return query + "&"
     }
@@ -69,7 +68,7 @@ class ConnpassRequest {
   private fun getQueryAttr(array: Array<String>?, name: String): String {
     if(array != null) {
       var query = name + "="
-      array.forEach { query += it + "," }
+      array.forEach { if(it != "")query += it + "," }
       if (query.last() == ',') query.substring(0, query.length - 1)
       return query + "&"
     }

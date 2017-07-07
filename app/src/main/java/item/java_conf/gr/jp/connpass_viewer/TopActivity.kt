@@ -16,7 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.widget.Toast
+import android.widget.EditText
 import item.java_conf.gr.jp.connpass_viewer.fragment.RecyclerFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.AdvancedSearchFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.SettingFragment
@@ -24,7 +24,6 @@ import kotlinx.android.synthetic.main.activity_top.*
 
 class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
   val PERMISSION_REQUEST_INTERNET = 122
-
 
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
     if(requestCode == PERMISSION_REQUEST_INTERNET && grantResults.isNotEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
@@ -60,8 +59,9 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
 
     nav_view.getHeaderView(0).findViewById<View>(R.id.simpleSearch).setOnClickListener {
-      Toast.makeText(this@TopActivity, "test", Toast.LENGTH_SHORT).show()
-      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=3"))
+      Setting.simpleRequest.keyword = nav_view.getHeaderView(0).findViewById<EditText>(R.id.simpleSearchEditText).text.split(" ")
+      System.out.println(Setting.simpleRequest.getQuery())
+      changeFragment(RecyclerFragment(Setting.simpleRequest.getQuery()))
     }
 
 
@@ -81,7 +81,13 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     val id = item.itemId
 
     if (id == R.id.nav_my_event) {
-      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=2"))
+      if(Setting.userName == null || Setting.userName == "") {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@TopActivity)
+        builder.setMessage("マイイベントを見るにはユーザー名の登録が必要です。")
+            .setPositiveButton("ok", DialogInterface.OnClickListener { _, _ ->  changeFragment(SettingFragment()) })
+            .create()
+            .show()
+      } else changeFragment(RecyclerFragment(Setting.myEventRequest.getQuery()))
     } else if (id == R.id.nav_advanced_search) {
       changeFragment(AdvancedSearchFragment())
     } else if (id == R.id.nav_favorite) {

@@ -29,6 +29,8 @@
         app:srcCompat="@drawable/ic_action_search" />
 
     <EditText
+        style="@style/SimpleSearchStyle"
+        app:theme="@style/SimpleSearchStyle"
         android:textCursorDrawable="@color/colorPrimaryDark"
         android:id="@+id/simpleSearchEditText"
         android:layout_width="0dp"

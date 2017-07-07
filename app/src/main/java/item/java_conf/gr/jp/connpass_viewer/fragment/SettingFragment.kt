@@ -25,10 +25,10 @@ class SettingFragment : Fragment() {
     if(Setting.isOr) radioOr.isChecked = true
     else radioAnd.isChecked =true
     when(Setting.searchRange) {
-      0 -> spinner.setSelection(0)
-      7 -> spinner.setSelection(1)
-      14 -> spinner.setSelection(2)
-      30 -> spinner.setSelection(3)
+      SearchRange.UNLIMITED -> spinner.setSelection(0)
+      SearchRange.ONE_WEEK -> spinner.setSelection(1)
+      SearchRange.TWO_WEEK -> spinner.setSelection(2)
+      SearchRange.ONE_MONTH-> spinner.setSelection(3)
     }
     button.setOnClickListener {
       val searchRange = when (spinner.selectedItem.toString()) {
