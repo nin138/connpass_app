@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import item.java_conf.gr.jp.connpass_viewer.R
 import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassRequest
 import kotlinx.android.synthetic.main.advanced_search_fragment.*
+import java.util.*
 
 
 class AdvancedSearchFragment : Fragment() {
@@ -23,9 +24,15 @@ class AdvancedSearchFragment : Fragment() {
       request.keyword = keywords_edit.text.trim().split(" ")
       request.keyword_is_or = toggleBtn.isChecked
       request.nickname = nickname_edit.text.trim().split(" ")
-//      request.setDateRange(
-//          toYYYYMMDD(datePickerStart.year, datePickerStart.month, datePickerStart.dayOfMonth),
-//          toYYYYMMDD(datePickerEnd.year, datePickerEnd.month, datePickerEnd.dayOfMonth))
+      request.date_range =  when(spinner.selectedItem.toString()) {
+        "無制限" -> ConnpassRequest.SearchRange.UNLIMITED
+        "から１週間" -> ConnpassRequest.SearchRange.ONE_WEEK
+        "から２週間" -> ConnpassRequest.SearchRange.TWO_WEEK
+        else -> ConnpassRequest.SearchRange.ONE_MONTH
+      }
+      datePickerStart.year
+      request.start_date = Calendar.getInstance()
+      request.start_date?.set(datePickerStart.year, datePickerStart.month, datePickerStart.dayOfMonth)
 
       val transaction = fragmentManager.beginTransaction()
       transaction.replace(R.id.fragment_frame, RecyclerFragment(request.getQuery()))

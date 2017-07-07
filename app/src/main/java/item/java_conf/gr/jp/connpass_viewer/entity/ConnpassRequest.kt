@@ -15,6 +15,7 @@ class ConnpassRequest {
   var keyword_is_or: Boolean = false
   var ym: Array<String>? = null// yyyymm
   var ymd: Array<String>? = null // yyyymmdd
+  var start_date: Calendar? = null
   var date_range: SearchRange = SearchRange.UNLIMITED
   var nickname: List<String>? =null
   var owner_nickname: Array<String>? = null
@@ -53,6 +54,7 @@ class ConnpassRequest {
       return list
     }
     if(date_range == SearchRange.UNLIMITED) return ""
+    if(start_date != null) return getQueryAttr(getDateRange(date_range, start_date!!), "ymd")
     return getQueryAttr(getDateRange(date_range), "ymd")
   }
 

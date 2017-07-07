@@ -1,5 +1,7 @@
 package item.java_conf.gr.jp.connpass_viewer.entity
 
+import java.io.Serializable
+
 data class ConnpassResponse(
         var results_returned: Int,//	整数	含まれる検索結果の件数	1
         var results_available: Int, //	整数	検索結果の総件数	191
@@ -29,6 +31,31 @@ data class Event(
         var waiting: Int, //	整数	補欠者数	15
         var updated_at: String
 )
+class SerializableEvent(e: Event): Serializable {
+  val event_id = e.event_id
+  val title = e.title
+  val catch = e.catch
+  val description = e.description
+  val event_url = e.event_url
+  val hash_tag = e.hash_tag
+  val started_at = e.started_at
+  val ended_at = e.ended_at
+  val limit = e.limit
+  val event_type = e.event_type
+  val address = e.address
+  val place = e.place
+  val lat = e.lat
+  val lon = e.lon
+  val owner_id = e.owner_id
+  val owner_nickname = e.owner_nickname
+  val owner_display_name = e.owner_display_name
+  val accepted = e.accepted
+  val waiting = e.waiting
+  val updated_at = e.updated_at
+  val series_id = e.series?.id
+  val series_title = e.series?.title
+  val series_url = e.series?.url
+}
 data class Series(
         var id: Int, //	整数	グループID	1
         var title: String, //	文字列(UTF-8)	グループタイトル	BPStudy

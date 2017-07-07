@@ -1,20 +1,21 @@
 package item.java_conf.gr.jp.connpass_viewer.fragment
 
 import android.app.Fragment
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
+import item.java_conf.gr.jp.connpass_viewer.EventDetailActivity
 import item.java_conf.gr.jp.connpass_viewer.Http
 import item.java_conf.gr.jp.connpass_viewer.R
 import item.java_conf.gr.jp.connpass_viewer.RecyclerAdapter
 import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassResponse
 import item.java_conf.gr.jp.connpass_viewer.entity.Event
+import item.java_conf.gr.jp.connpass_viewer.entity.SerializableEvent
 import kotlinx.android.synthetic.main.recycler_fragment.*
-
-
 
 
 class RecyclerFragment() : Fragment() {
@@ -39,7 +40,9 @@ class RecyclerFragment() : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     adaptor!!.setOnItemClickListener(object : RecyclerAdapter.OnItemClickListener {
       override fun onItemClick(adapter: RecyclerAdapter, position: Int, event: Event) {
-        Toast.makeText(activity, event.title, Toast.LENGTH_SHORT).show()
+        val intent = Intent(activity, EventDetailActivity::class.java)
+        intent.putExtra("event", SerializableEvent(event))
+        startActivity(intent)
       }
     })
     if(query != savedInstanceState?.getString("query")) {
