@@ -23,9 +23,9 @@ class AdvancedSearchFragment : Fragment() {
       request.keyword = keywords_edit.text.trim().split(" ")
       request.keyword_is_or = toggleBtn.isChecked
       request.nickname = nickname_edit.text.trim().split(" ")
-      request.setDateRange(
-          toYYYYMMDD(datePickerStart.year, datePickerStart.month, datePickerStart.dayOfMonth),
-          toYYYYMMDD(datePickerEnd.year, datePickerEnd.month, datePickerEnd.dayOfMonth))
+//      request.setDateRange(
+//          toYYYYMMDD(datePickerStart.year, datePickerStart.month, datePickerStart.dayOfMonth),
+//          toYYYYMMDD(datePickerEnd.year, datePickerEnd.month, datePickerEnd.dayOfMonth))
 
       val transaction = fragmentManager.beginTransaction()
       transaction.replace(R.id.fragment_frame, RecyclerFragment(request.getQuery()))

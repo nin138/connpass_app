@@ -1,10 +1,15 @@
 package item.java_conf.gr.jp.connpass_viewer
 
+import android.Manifest
+import android.app.AlertDialog
 import android.app.Fragment
-import android.content.Intent
+import android.content.DialogInterface
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.support.design.widget.NavigationView
+import android.support.v4.content.PermissionChecker
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -18,13 +23,30 @@ import item.java_conf.gr.jp.connpass_viewer.fragment.SettingFragment
 import kotlinx.android.synthetic.main.activity_top.*
 
 class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+  val PERMISSION_REQUEST_INTERNET = 122
 
+
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    if(requestCode == PERMISSION_REQUEST_INTERNET && grantResults.isNotEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+      finish()
+    }
+  }
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     Setting.init(this)
     setContentView(R.layout.activity_top)
-    val toolbar = findViewById(R.id.toolbar) as Toolbar
+    if(Build.VERSION.SDK_INT >= 23) {
+      if(PermissionChecker.checkSelfPermission(this@TopActivity, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this@TopActivity)
+        builder.setMessage("このアプリはconnpass APIを利用するためインターネットへのアクセスを必要とします。そのためインターネットアクセスの許可が得られなかった場合終了します。")
+            .setPositiveButton("ok", DialogInterface.OnClickListener { dialogInterface, i ->   })
+            .create()
+            .show()
+        this.requestPermissions(arrayOf(Manifest.permission.INTERNET), PERMISSION_REQUEST_INTERNET)
+      }
+    }
 
+    val toolbar = findViewById(R.id.toolbar) as Toolbar
     val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
     val toggle = ActionBarDrawerToggle(
         this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)

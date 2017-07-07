@@ -22,7 +22,8 @@ class RecyclerAdapter(private val context: Context, private var list: Array<Even
   private var recycler: RecyclerView? = null
   private val inflater: LayoutInflater = LayoutInflater.from(context)
   private var clickListener: OnItemClickListener? = null
-  private val dateFmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.US)
+  private val dateFmt = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
+
   private val calender = Calendar.getInstance()
   private val days = arrayOf("日", "月", "火", "水", "木", "金", "土")
 

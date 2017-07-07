@@ -1,13 +1,15 @@
 package item.java_conf.gr.jp.connpass_viewer.fragment
 
+import android.app.AlertDialog
 import android.app.Fragment
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import item.java_conf.gr.jp.connpass_viewer.R
 import item.java_conf.gr.jp.connpass_viewer.Setting
+import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassRequest.SearchRange
 import kotlinx.android.synthetic.main.setting_fragment.*
 
 class SettingFragment : Fragment() {
@@ -30,12 +32,18 @@ class SettingFragment : Fragment() {
     }
     button.setOnClickListener {
       val searchRange = when (spinner.selectedItem.toString()) {
-        "無制限" -> Setting.SearchRange.UNLIMITED
-        "今日から１週間" -> Setting.SearchRange.ONE_WEEK
-        "今日から２週間" -> Setting.SearchRange.TWO_WEEK
-        else -> Setting.SearchRange.ONE_MONTH
+        "無制限" -> SearchRange.UNLIMITED
+        "今日から１週間" -> SearchRange.ONE_WEEK
+        "今日から２週間" -> SearchRange.TWO_WEEK
+        else -> SearchRange.ONE_MONTH
       }
       Setting.set(context = activity, userName = userNameEdit.text.toString(), searchRange = searchRange, isOr = radioOr.isChecked)
+      val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
+      builder.setMessage("設定が変更されました")
+          .setPositiveButton("ok", DialogInterface.OnClickListener { dialogInterface, i ->   })
+          .create()
+          .show()
+
     }
   }
 }
