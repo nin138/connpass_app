@@ -33,9 +33,8 @@ class AdvancedSearchFragment : Fragment() {
       datePickerStart.year
       request.start_date = Calendar.getInstance()
       request.start_date?.set(datePickerStart.year, datePickerStart.month, datePickerStart.dayOfMonth)
-
       val transaction = fragmentManager.beginTransaction()
-      transaction.replace(R.id.fragment_frame, RecyclerFragment(request.getQuery()))
+      transaction.replace(R.id.fragment_frame, RecyclerFragment(request))
       transaction.addToBackStack(null)
       transaction.commit()
     }

@@ -27,7 +27,8 @@ class Http : AsyncTask<String, Void, ConnpassResponse?>() {
     val url: URL = URL(args[0])
     try {
       val connection = url.openConnection() as HttpURLConnection
-      connection.connectTimeout = 7000
+      connection.connectTimeout = 10000
+      connection.readTimeout = 10000
       connection.connect()
       val status = connection.responseCode
       if(status == HttpsURLConnection.HTTP_OK) {
@@ -36,6 +37,7 @@ class Http : AsyncTask<String, Void, ConnpassResponse?>() {
         if (encoding == null) {
           encoding = "UTF-8"
         }
+        Setting.encording = encoding
         val streamReader = InputStreamReader(connection.inputStream, encoding)
         val buff = BufferedReader(streamReader)
         val sb = StringBuffer()

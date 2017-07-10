@@ -38,7 +38,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
       if(PermissionChecker.checkSelfPermission(this@TopActivity, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this@TopActivity)
         builder.setMessage("このアプリはconnpass APIを利用するためインターネットへのアクセスを必要とします。そのためインターネットアクセスの許可が得られなかった場合終了します。")
-            .setPositiveButton("ok", DialogInterface.OnClickListener { dialogInterface, i ->   })
+            .setPositiveButton("ok", DialogInterface.OnClickListener { _, _ ->   })
             .create()
             .show()
         this.requestPermissions(arrayOf(Manifest.permission.INTERNET), PERMISSION_REQUEST_INTERNET)
@@ -60,8 +60,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     nav_view.getHeaderView(0).findViewById<View>(R.id.simpleSearch).setOnClickListener {
       Setting.simpleRequest.keyword = nav_view.getHeaderView(0).findViewById<EditText>(R.id.simpleSearchEditText).text.split(" ")
-      System.out.println(Setting.simpleRequest.getQuery())
-      changeFragment(RecyclerFragment(Setting.simpleRequest.getQuery()))
+      changeFragment(RecyclerFragment(Setting.simpleRequest))
     }
 
 
@@ -87,11 +86,11 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             .setPositiveButton("ok", DialogInterface.OnClickListener { _, _ ->  changeFragment(SettingFragment()) })
             .create()
             .show()
-      } else changeFragment(RecyclerFragment(Setting.myEventRequest.getQuery()))
+      } else changeFragment(RecyclerFragment(Setting.myEventRequest))
     } else if (id == R.id.nav_advanced_search) {
       changeFragment(AdvancedSearchFragment())
     } else if (id == R.id.nav_favorite) {
-      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=1"))
+//      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=1"))
     } else if (id == R.id.nav_black_list) {
 
     } else if (id == R.id.nav_setting) {

@@ -17,6 +17,7 @@ object Setting {
     get() = field
     private set
 
+  var encording: String? = null
   var myEventRequest: ConnpassRequest = ConnpassRequest()
   val simpleRequest: ConnpassRequest = ConnpassRequest()
 

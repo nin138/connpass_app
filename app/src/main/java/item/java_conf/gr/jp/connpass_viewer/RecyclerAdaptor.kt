@@ -14,7 +14,7 @@ import java.io.Serializable
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RecyclerAdapter(private val context: Context, private var list: Array<Event>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(), View.OnClickListener {
+class RecyclerAdapter(private val context: Context, private var list: ArrayList<Event>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(), View.OnClickListener {
   interface OnItemClickListener {
     fun onItemClick(adapter: RecyclerAdapter, position: Int, event: Event)
   }
@@ -28,9 +28,12 @@ class RecyclerAdapter(private val context: Context, private var list: Array<Even
   private val days = arrayOf("日", "月", "火", "水", "木", "金", "土")
 
 
-  fun setList(list: Array<Event>) {
-    this.list = list
-    recycler?.adapter = this
+  fun addList(new_list: Array<Event>) {
+    for(e: Event in new_list) {
+      this.list.add(e)
+    }
+    this.notifyDataSetChanged()
+//    recycler?.adapter = this
   }
 
   fun setOnItemClickListener(listener: OnItemClickListener) {
