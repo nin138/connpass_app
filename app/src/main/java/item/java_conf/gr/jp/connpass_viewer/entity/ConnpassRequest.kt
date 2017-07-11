@@ -1,11 +1,13 @@
 package item.java_conf.gr.jp.connpass_viewer.entity
 
+import android.util.Log
 import item.java_conf.gr.jp.connpass_viewer.Http
+import item.java_conf.gr.jp.connpass_viewer.Setting
 import java.io.Serializable
 import java.util.*
 
 
-val REQUEST_COUNT = 5
+val REQUEST_COUNT = 10
 class ConnpassRequest : Serializable {
   enum class SearchRange(var days: Int) {
     ONE_WEEK(7),
@@ -30,7 +32,7 @@ class ConnpassRequest : Serializable {
 
 
   interface Result {
-    fun onSuccess(list: Array<Event>)
+    fun onSuccess(list: List<Event>)
     fun onError()
   }
   fun getList(cb: Result) {
@@ -38,9 +40,14 @@ class ConnpassRequest : Serializable {
     val http = Http()
     http.setCallback(object : Http.Callback {
       override fun onSuccess(body: ConnpassResponse) {
-        if(body.events.isEmpty()) finished = true
+        if(body.events.size < REQUEST_COUNT) finished = true
         else start += REQUEST_COUNT
-        cb.onSuccess(body.events)
+        val list = ArrayList<Event>()
+        body.events.forEach {
+          if(!Setting.blackList.contains(it.series?.id)) list.add(it)
+          else System.out.println("deleted!!!")
+        }
+        cb.onSuccess(list)
       }
       override fun onError() {
         cb.onError()
@@ -48,9 +55,6 @@ class ConnpassRequest : Serializable {
     })
     http.execute(getQuery())
   }
-
-
-
 
   private fun getQuery(): String {
     return baseUrl +

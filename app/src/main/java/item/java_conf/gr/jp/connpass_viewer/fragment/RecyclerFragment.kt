@@ -5,21 +5,20 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Layout
-import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Toast
 import item.java_conf.gr.jp.connpass_viewer.EventDetailActivity
-import item.java_conf.gr.jp.connpass_viewer.Http
 import item.java_conf.gr.jp.connpass_viewer.R
 import item.java_conf.gr.jp.connpass_viewer.RecyclerAdapter
 import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassRequest
-import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassResponse
 import item.java_conf.gr.jp.connpass_viewer.entity.Event
 import item.java_conf.gr.jp.connpass_viewer.entity.SerializableEvent
 import kotlinx.android.synthetic.main.recycler_fragment.*
+import android.support.v7.widget.helper.ItemTouchHelper
+
+
 
 
 class RecyclerFragment() : Fragment() {
@@ -32,7 +31,7 @@ class RecyclerFragment() : Fragment() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    if(adaptor == null) adaptor = RecyclerAdapter(activity, ArrayList())
+    if(adaptor == null) adaptor = RecyclerAdapter(activity, ArrayList(), this)
   }
 
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -63,8 +62,6 @@ class RecyclerFragment() : Fragment() {
         val totalItemCount = layoutManager.itemCount
         val lastVisibleItem = layoutManager.findLastVisibleItemPosition() + 1
         if(totalItemCount < lastVisibleItem + 5) {
-          isLoading = true
-          Toast.makeText(activity, "tesgw", Toast.LENGTH_SHORT).show()
           updateList()
         }
       }
@@ -72,18 +69,39 @@ class RecyclerFragment() : Fragment() {
         super.onScrollStateChanged(recyclerView, newState)
       }
     })
+
+//    ItemTouchHelper swipeToDismissTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(
+//        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT)
+
+    val helper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
+      override fun getMovementFlags(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder): Int {
+        return ItemTouchHelper.Callback.makeFlag(ItemTouchHelper.ACTION_STATE_SWIPE, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
+      }
+      override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
+        return false
+      }
+      override fun onSwiped(viewHolder: RecyclerView.ViewHolder, i: Int) {
+        adaptor!!.onItemSwiped(viewHolder.adapterPosition, activity)
+      }
+    })
+    helper.attachToRecyclerView(recycler_view)
+    recycler_view.addItemDecoration(helper)
   }
   fun updateList() {
     if(request!!.finished) return
     isLoading = true
+    activity.findViewById<View>(R.id.gifView).visibility = View.VISIBLE
     request!!.getList(object : ConnpassRequest.Result {
-      override fun onSuccess(list: Array<Event>) {
+      override fun onSuccess(list: List<Event>) {
         adaptor!!.addList(list)
         isLoading = false
+        activity.findViewById<View>(R.id.gifView).visibility = View.INVISIBLE
+        if(adaptor!!.itemCount < 6) updateList()
       }
       override fun onError() {
         Toast.makeText(activity, "net connection error", Toast.LENGTH_SHORT).show()
         isLoading = false
+        activity.findViewById<View>(R.id.gifView).visibility = View.INVISIBLE
       }
     })
   }

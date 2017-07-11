@@ -22,6 +22,9 @@
         android:id="@+id/nav_setting"
         android:icon="@drawable/ic_action_setting"
         android:title="@string/settings" />
+    <item
+      android:id="@+id/nav_new"
+      android:title="new_event" />
   </group>
 
   <item android:title="@string/settings">

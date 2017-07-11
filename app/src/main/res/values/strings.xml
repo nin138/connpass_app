@@ -43,4 +43,5 @@
   </string-array>
   <string name="search_or">or検索</string>
   <string name="search_and">and検索</string>
+  <string name="new_event">新着イベント</string>
 </resources>

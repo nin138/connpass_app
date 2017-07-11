@@ -7,14 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import item.java_conf.gr.jp.connpass_viewer.entity.Event
+import item.java_conf.gr.jp.connpass_viewer.fragment.RecyclerFragment
 import java.io.Serializable
 
 
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RecyclerAdapter(private val context: Context, private var list: ArrayList<Event>) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(), View.OnClickListener {
+class RecyclerAdapter(private val context: Context, private var list: ArrayList<Event>, private val fragment: RecyclerFragment) : RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(), View.OnClickListener {
   interface OnItemClickListener {
     fun onItemClick(adapter: RecyclerAdapter, position: Int, event: Event)
   }
@@ -28,16 +30,34 @@ class RecyclerAdapter(private val context: Context, private var list: ArrayList<
   private val days = arrayOf("日", "月", "火", "水", "木", "金", "土")
 
 
-  fun addList(new_list: Array<Event>) {
+  fun addList(new_list: List<Event>) {
+    val startPosition = list.size
     for(e: Event in new_list) {
       this.list.add(e)
     }
-    this.notifyDataSetChanged()
+    notifyItemRangeInserted(startPosition, new_list.size)
 //    recycler?.adapter = this
   }
 
   fun setOnItemClickListener(listener: OnItemClickListener) {
     clickListener = listener
+  }
+  fun onItemSwiped(position: Int, context: Context) {
+    val series = list[position].series
+    list.removeAt(position)
+    notifyItemRemoved(position)
+    if(series != null) {
+      val db = SQLite(context)
+      db.addBlackList(id = series.id, title = series.title, url = series.url)
+      val bl_id = series.id
+      list.forEachIndexed { index, event ->
+        if(event.series?.id == bl_id) {
+          list.removeAt(index)
+          notifyItemRemoved(index)
+        }
+      }
+    }
+    if(list.size < 7) fragment.updateList()
   }
 
   override fun onClick(view: View) {

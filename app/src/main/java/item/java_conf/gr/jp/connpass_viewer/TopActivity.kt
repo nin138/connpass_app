@@ -3,6 +3,7 @@ package item.java_conf.gr.jp.connpass_viewer
 import android.Manifest
 import android.app.AlertDialog
 import android.app.Fragment
+import android.content.Context
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Build
@@ -21,6 +22,12 @@ import item.java_conf.gr.jp.connpass_viewer.fragment.RecyclerFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.AdvancedSearchFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.SettingFragment
 import kotlinx.android.synthetic.main.activity_top.*
+import android.content.Context.INPUT_METHOD_SERVICE
+import android.view.inputmethod.InputMethodManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
+import kotlinx.android.synthetic.main.app_bar_top.*
+
 
 class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
   val PERMISSION_REQUEST_INTERNET = 122
@@ -45,6 +52,12 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
       }
     }
 
+    val db = SQLite(this)
+    val l = db.getBlackList()
+    for(s in l) {
+      System.out.println(s.title)
+    }
+
     val toolbar = findViewById(R.id.toolbar) as Toolbar
     val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
     val toggle = ActionBarDrawerToggle(
@@ -61,8 +74,17 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     nav_view.getHeaderView(0).findViewById<View>(R.id.simpleSearch).setOnClickListener {
       Setting.simpleRequest.keyword = nav_view.getHeaderView(0).findViewById<EditText>(R.id.simpleSearchEditText).text.split(" ")
       changeFragment(RecyclerFragment(Setting.simpleRequest))
+      val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+      if (currentFocus != null) inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+      if (drawer.isDrawerOpen(GravityCompat.START)) drawer.closeDrawer(GravityCompat.START)
+      Setting.simpleRequest.start = 1
+      Setting.simpleRequest.finished = false
+
     }
 
+    val target = GlideDrawableImageViewTarget(gifView)
+    Glide.with(this).load(R.raw.loader).into(target)
+    gifView.visibility = View.INVISIBLE
 
   }
 
@@ -86,7 +108,11 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
             .setPositiveButton("ok", DialogInterface.OnClickListener { _, _ ->  changeFragment(SettingFragment()) })
             .create()
             .show()
-      } else changeFragment(RecyclerFragment(Setting.myEventRequest))
+      } else {
+        Setting.myEventRequest.start = 1
+        Setting.myEventRequest.finished = false
+        changeFragment(RecyclerFragment(Setting.myEventRequest))
+      }
     } else if (id == R.id.nav_advanced_search) {
       changeFragment(AdvancedSearchFragment())
     } else if (id == R.id.nav_favorite) {

@@ -1,6 +1,7 @@
 package item.java_conf.gr.jp.connpass_viewer
 
 import android.content.Context
+import android.util.Log
 import item.java_conf.gr.jp.connpass_viewer.entity.ConnpassRequest
 
 
@@ -17,6 +18,8 @@ object Setting {
     get() = field
     private set
 
+  val blackList = ArrayList<Int>()
+
   var encording: String? = null
   var myEventRequest: ConnpassRequest = ConnpassRequest()
   val simpleRequest: ConnpassRequest = ConnpassRequest()
@@ -28,6 +31,11 @@ object Setting {
     this.searchRange = ConnpassRequest.SearchRange.values().filter { int == it.days }.first()
     this.isOr = prefs.getBoolean("isOr", false)
     this.onStateChange()
+    val db = SQLite(context)
+    db.getBlackList().forEach {
+      Log.d("id", it.id.toString())
+      blackList.add(it.id)
+    }
   }
   fun set(context: Context, userName: String, searchRange: ConnpassRequest.SearchRange, isOr: Boolean) {
     this.userName = userName

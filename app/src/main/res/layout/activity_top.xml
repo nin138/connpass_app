@@ -37,6 +37,15 @@
         android:layout_marginEnd="8dp">
 
     </LinearLayout>
+    <ImageView
+        android:id="@+id/gifView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/border_bottom"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="@+id/include"/>
 
   </android.support.constraint.ConstraintLayout>
 
