@@ -24,6 +24,7 @@ import item.java_conf.gr.jp.connpass_viewer.fragment.SettingFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.BlackListFragment
 import kotlinx.android.synthetic.main.activity_top.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
 
@@ -86,7 +87,10 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     Glide.with(this).load(R.raw.loader).into(target)
     gifView.visibility = View.INVISIBLE
 
-    toMyEvent()
+    val transaction = fragmentManager.beginTransaction()
+    transaction.replace(R.id.fragment_frame, RecyclerFragment(Setting.getNewEventRequest()))
+    transaction.addToBackStack(null)
+    transaction.commit()
   }
 
   override fun onBackPressed() {
@@ -108,6 +112,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
       R.id.nav_advanced_search -> changeFragment(AdvancedSearchFragment())
       R.id.nav_black_list -> changeFragment(BlackListFragment())
       R.id.nav_setting -> changeFragment(SettingFragment())
+      R.id.nav_favorite -> Toast.makeText(this, "未実装", Toast.LENGTH_SHORT).show() //TODO impl
     }
     val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
     drawer.closeDrawer(GravityCompat.START)

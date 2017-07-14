@@ -26,6 +26,14 @@ class BlackListFragment : Fragment() {
     val db = SQLite(activity)
     val adapter = ArrayAdapter<Series>(activity, android.R.layout.simple_list_item_1, db.getBlackList())
     list_view.adapter = adapter
+    if(adapter.count == 0) {
+      val alert = AlertDialog.Builder(activity)
+      alert.setMessage("イベントをスワイプすることでグループをブラックリストに設定できます。")
+          .setPositiveButton("ok", null)
+          .setCancelable(true)
+          .create()
+          .show()
+    }
     list_view.onItemClickListener = object : AdapterView.OnItemClickListener {
       override fun onItemClick(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(activity)
