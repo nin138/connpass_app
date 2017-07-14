@@ -11,8 +11,7 @@ class EventDetailActivity : AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_event_detail)
     val event = intent.getSerializableExtra("event") as SerializableEvent
-//    web_view.settings.loadWithOverviewMode = true
-//    web_view.settings.useWideViewPort = true
-    web_view.loadData(event.description, "text/html", Setting.encording)
+    System.out.println(Setting.encording)
+    web_view.loadData(event.description, "text/html;charset=" + Setting.encording, Setting.encording)
   }
 }

@@ -21,12 +21,12 @@ import android.widget.EditText
 import item.java_conf.gr.jp.connpass_viewer.fragment.RecyclerFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.AdvancedSearchFragment
 import item.java_conf.gr.jp.connpass_viewer.fragment.SettingFragment
+import item.java_conf.gr.jp.connpass_viewer.fragment.BlackListFragment
 import kotlinx.android.synthetic.main.activity_top.*
-import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget
-import kotlinx.android.synthetic.main.app_bar_top.*
+
 
 
 class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -86,6 +86,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     Glide.with(this).load(R.raw.loader).into(target)
     gifView.visibility = View.INVISIBLE
 
+    toMyEvent()
   }
 
   override fun onBackPressed() {
@@ -101,31 +102,12 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
   override fun onNavigationItemSelected(item: MenuItem): Boolean {
     val id = item.itemId
 
-    if (id == R.id.nav_my_event) {
-      if(Setting.userName == null || Setting.userName == "") {
-        val builder: AlertDialog.Builder = AlertDialog.Builder(this@TopActivity)
-        builder.setMessage("マイイベントを見るにはユーザー名の登録が必要です。")
-            .setPositiveButton("ok", DialogInterface.OnClickListener { _, _ ->  changeFragment(SettingFragment()) })
-            .create()
-            .show()
-      } else {
-        Setting.myEventRequest.start = 1
-        Setting.myEventRequest.finished = false
-        changeFragment(RecyclerFragment(Setting.myEventRequest))
-      }
-    } else if (id == R.id.nav_advanced_search) {
-      changeFragment(AdvancedSearchFragment())
-    } else if (id == R.id.nav_favorite) {
-//      changeFragment(RecyclerFragment("https://connpass.com/api/v1/event/?nickname=yanokunpei&count=20&order=1"))
-    } else if (id == R.id.nav_black_list) {
-
-    } else if (id == R.id.nav_setting) {
-      changeFragment(SettingFragment())
-
-    } else if (id == R.id.nav_send) {
-
+    when(id) {
+      R.id.nav_my_event -> toMyEvent()
+      R.id.nav_advanced_search -> changeFragment(AdvancedSearchFragment())
+      R.id.nav_black_list -> changeFragment(BlackListFragment())
+      R.id.nav_setting -> changeFragment(SettingFragment())
     }
-
     val drawer = findViewById(R.id.drawer_layout) as DrawerLayout
     drawer.closeDrawer(GravityCompat.START)
     return true
@@ -135,5 +117,18 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
     transaction.replace(R.id.fragment_frame, fragment)
     transaction.addToBackStack(null)
     transaction.commit()
+  }
+  fun toMyEvent() {
+    if(Setting.userName == null || Setting.userName == "") {
+      val builder: AlertDialog.Builder = AlertDialog.Builder(this@TopActivity)
+      builder.setMessage("マイイベントを見るにはユーザー名の登録が必要です。")
+          .setPositiveButton("ok", DialogInterface.OnClickListener { _, _ ->  changeFragment(SettingFragment()) })
+          .create()
+          .show()
+    } else {
+      Setting.myEventRequest.start = 1
+      Setting.myEventRequest.finished = false
+      changeFragment(RecyclerFragment(Setting.myEventRequest))
+    }
   }
 }

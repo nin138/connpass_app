@@ -60,4 +60,8 @@ data class Series(
         var id: Int, //	整数	グループID	1
         var title: String, //	文字列(UTF-8)	グループタイトル	BPStudy
         var url: String //文字列(UTF-8)	グループのconnpass.com 上のURL	https://connpass.com/series/1/
-)
+) {
+  override fun toString(): String {
+    return title
+  }
+}
