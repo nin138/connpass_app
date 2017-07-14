@@ -55,4 +55,9 @@ object Setting {
     simpleRequest.date_range = searchRange
     simpleRequest.keyword_is_or = isOr
   }
+  fun getNewEventRequest(): ConnpassRequest {
+    val req = ConnpassRequest()
+    req.order = 3
+    return req
+  }
 }

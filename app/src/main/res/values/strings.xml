@@ -16,6 +16,7 @@
   <string name="settings">設定</string>
   <string name="favorite">お気に入り</string>
   <string name="black_list">ブラックリスト</string>
+  <string name="new_event">新着イベント</string>
 
   <string name="setting_me">my設定</string>
   <string name="setting_search">検索設定</string>
@@ -43,5 +44,4 @@
   </string-array>
   <string name="search_or">or検索</string>
   <string name="search_and">and検索</string>
-  <string name="new_event">新着イベント</string>
 </resources>

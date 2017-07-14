@@ -104,6 +104,7 @@ class TopActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     when(id) {
       R.id.nav_my_event -> toMyEvent()
+      R.id.nav_new_event -> changeFragment(RecyclerFragment(Setting.getNewEventRequest()))
       R.id.nav_advanced_search -> changeFragment(AdvancedSearchFragment())
       R.id.nav_black_list -> changeFragment(BlackListFragment())
       R.id.nav_setting -> changeFragment(SettingFragment())

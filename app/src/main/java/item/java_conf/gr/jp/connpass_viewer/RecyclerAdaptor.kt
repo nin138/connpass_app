@@ -50,11 +50,14 @@ class RecyclerAdapter(private val context: Context, private var list: ArrayList<
       val db = SQLite(context)
       db.addBlackList(id = series.id, title = series.title, url = series.url)
       val bl_id = series.id
-      list.forEachIndexed { index, event ->
-        if(event.series?.id == bl_id) {
-          list.removeAt(index)
-          notifyItemRemoved(index)
+      var i = 0
+      while (true) {
+        if(i >= list.size) break
+        if(list[i].series?.id == bl_id) {
+          list.removeAt(i)
+          notifyItemRemoved(i)
         }
+        i++
       }
     }
     if(list.size < 7) fragment.updateList()

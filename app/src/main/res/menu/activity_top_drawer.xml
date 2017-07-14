@@ -7,6 +7,10 @@
         android:id="@+id/nav_my_event"
         android:title="@string/my_event" />
     <item
+        android:id="@+id/nav_new_event"
+        android:icon="@drawable/ic_new_event"
+        android:title="@string/new_event" />
+    <item
         android:id="@+id/nav_advanced_search"
         android:icon="@drawable/ic_action_plus"
         android:title="@string/advanced_search" />
@@ -22,9 +26,6 @@
         android:id="@+id/nav_setting"
         android:icon="@drawable/ic_action_setting"
         android:title="@string/settings" />
-    <item
-      android:id="@+id/nav_new"
-      android:title="new_event" />
   </group>
 
   <item android:title="@string/settings">
